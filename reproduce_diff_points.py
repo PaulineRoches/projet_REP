@@ -1,73 +1,94 @@
-import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 # Chargement des données CSV
 df = pd.read_csv("./understat_team_stats_home_away.csv")
 
 # Vérifier que les colonnes nécessaires existent
-required_columns = ["League", "Season", "Location", "PTS", "xPTS", "M"]
+required_columns = ["League", "Season", "Team", "Location", "PTS", "xPTS"]
 if not all(col in df.columns for col in required_columns):
     raise ValueError(f"Le fichier CSV doit contenir les colonnes suivantes : {required_columns}")
 
-# Créer le dossier pour enregistrer les graphiques
-output_dir = "evolutions_par_ligue"
-os.makedirs(output_dir, exist_ok=True)
-
-# Calculer les moyennes par league, season, et home/away
+# Calculer les sommes par league, year, et home/away
 grouped = df.groupby(["League", "Season", "Location"]).agg(
-    points_avg=("PTS", "sum"),
-    xpoints_avg=("xPTS", "sum"),
-    matchs_count=("M", "sum")
+    points_sum=("PTS", "sum"),
+    xpoints_sum=("xPTS", "sum")
 ).reset_index()
 
-# Calcul des points moyens par match
-grouped["points_avg_per_game"] = grouped["points_avg"] / grouped["matchs_count"]
-grouped["xpoints_avg_per_game"] = grouped["xpoints_avg"] / grouped["matchs_count"]
-
-# Séparer les données à domicile et à l'extérieur
+# Transformer les données pour calculer les différences home-away
 home_data = grouped[grouped["Location"] == "home"].rename(
-    columns={"points_avg_per_game": "points_home", "xpoints_avg_per_game": "xpoints_home"}
+    columns={"points_sum": "points_home", "xpoints_sum": "xpoints_home"}
 )
 away_data = grouped[grouped["Location"] == "away"].rename(
-    columns={"points_avg_per_game": "points_away", "xpoints_avg_per_game": "xpoints_away"}
+    columns={"points_sum": "points_away", "xpoints_sum": "xpoints_away"}
 )
 
-# Fusionner les données à domicile et à l'extérieur
 merged = pd.merge(
     home_data[["League", "Season", "points_home", "xpoints_home"]],
     away_data[["League", "Season", "points_away", "xpoints_away"]],
     on=["League", "Season"]
 )
 
-# Créer un graphique pour chaque ligue
-leagues = merged["League"].unique()
+# Calcul des différences
+merged["diff_points_homeaway"] = merged["points_home"] - merged["points_away"]
+merged["diff_xpoints_homeaway"] = merged["xpoints_home"] - merged["xpoints_away"]
 
-# Créer et enregistrer les graphiques
-for league in leagues:
-    league_data = merged[merged["League"] == league]
+# Fonction pour ajouter des barres colorées avec des étiquettes
+def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
+    bar_length = (value / max_value) * 0.5  # Longueur relative
+    color = color_positive if value > 0 else color_negative
+    ax.barh(0, bar_length, color=color)  # Hauteur de la barre réduite à 0.3 pour rendre les cases plus petites
+    # Calculer la position du texte pour être à droite de la barre (le long de l'axe x)
+    margin = 0.02  # Une petite marge à droite
+    ax.text(bar_length - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=10, color='black')
+    ax.set_xlim(-0.5, 0.5)
+    ax.axis('off')
 
-    # Créer une nouvelle figure
-    plt.figure(figsize=(10, 6))
+# Création de la figure avec taille fixe
+fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.0), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
-    # Tracer les courbes avec les couleurs demandées
-    plt.plot(league_data["Season"], league_data["points_home"], label="Points à domicile", marker='o', linestyle='-', color='blue')
-    plt.plot(league_data["Season"], league_data["xpoints_home"], label="Points attendus à domicile", marker='o', linestyle='-', color='orange')
-    plt.plot(league_data["Season"], league_data["points_away"], label="Points à l'extérieur", marker='o', linestyle='-', color='green')
-    plt.plot(league_data["Season"], league_data["xpoints_away"], label="Points attendus à l'extérieur", marker='o', linestyle='-', color='red')
+# Normalisation pour ajuster la longueur des barres
+max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints_homeaway"].abs().max())
 
-    # Personnaliser le graphique
-    plt.title(f"Évolution des points pour {league}", fontsize=16)
-    plt.xlabel("Saison", fontsize=12)
-    plt.ylabel("Moyenne des points par match", fontsize=12)
-    plt.legend()
-    plt.grid(True)
-    plt.xticks(league_data["Season"], rotation=45)
+# Ajout des titres des colonnes
+columns = ["League", "Season", "Diff Points (Home-Away)", "Diff XPoints (Home-Away)"]
+for j, col in enumerate(columns):
+    axs[0, j].text(0.5, 0.5, col, ha='center', va='center', fontsize=14, fontweight='bold')
+    axs[0, j].axis('off')
+
+# Ajout des données
+for i, row in merged.iterrows():
+    # Fond alterné pour les lignes
+    if i % 2 == 0:
+        for j in range(2):
+            axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.5, 1.5, color="#f0f0f0", zorder=-1))
+        for j in range(2, 4):
+            # On applique le fond uniquement sans affecter la mise en page de la barre
+            axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.0, 1.0, color="#f0f0f0", zorder=-1))
     
-    # Enregistrer le graphique en tant qu'image PNG dans le dossier
-    file_path = os.path.join(output_dir, f"evolution_points_{league}.png")
-    plt.tight_layout()
-    plt.savefig(file_path)  # Enregistrer le graphique
-    plt.close()  # Fermer la figure après l'avoir sauvegardée
+    # Colonne League
+    axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=12)
+    axs[i + 1, 0].axis('off')
 
-print(f"Les graphiques ont été enregistrés dans le dossier '{output_dir}'.")
+    # Colonne Season
+    axs[i + 1, 1].text(0.5, 0.5, str(row["Season"]), ha='center', va='center', fontsize=12)
+    axs[i + 1, 1].axis('off')
+
+    # Colonne diff_points_homeaway
+    draw_bar(axs[i + 1, 2], row["diff_points_homeaway"], max_value)
+
+    # Colonne diff_xpoints_homeaway
+    draw_bar(axs[i + 1, 3], row["diff_xpoints_homeaway"], max_value)
+
+# Suppression des espaces entre colonnes et lignes
+plt.subplots_adjust(wspace=0, hspace=0)  # Réduction de l'espace vertical pour les cases plus petites
+
+# Enregistrement de l'image dans un fichier
+output_file = "diff_points_xpoints_comparison_table_with_barcharts.png"
+plt.savefig(output_file, bbox_inches='tight', dpi=300)
+
+# Affichage de l'image
+plt.close()
+
+print(f"Le graphique a été enregistré sous {output_file}")
