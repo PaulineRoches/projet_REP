@@ -95,7 +95,7 @@ for i, row in merged.iterrows():
 plt.subplots_adjust(wspace=0, hspace=0)  # Pas d'espace entre les lignes
 
 # Enregistrement de l'image dans un fichier
-output_file = "diff_points_xpoints.png"
+output_file = "results/diff_points_xpoints.png"
 plt.savefig(output_file, bbox_inches='tight', dpi=300)
 
 # Affichage de l'image

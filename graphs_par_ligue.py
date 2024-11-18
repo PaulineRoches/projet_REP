@@ -11,7 +11,7 @@ if not all(col in df.columns for col in required_columns):
     raise ValueError(f"Le fichier CSV doit contenir les colonnes suivantes : {required_columns}")
 
 # Créer le dossier pour enregistrer les graphiques
-output_dir = "evolutions_par_ligue"
+output_dir = "results/evolutions_par_ligue"
 os.makedirs(output_dir, exist_ok=True)
 
 # Calculer les moyennes par league, season, et home/away
