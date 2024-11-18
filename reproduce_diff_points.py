@@ -35,16 +35,18 @@ merged["diff_points_homeaway"] = merged["points_home"] - merged["points_away"]
 merged["diff_xpoints_homeaway"] = merged["xpoints_home"] - merged["xpoints_away"]
 
 # Fonction pour ajouter des barres colorées avec des étiquettes
-def draw_bar(ax, value, max_value, color_positive='green', color_negative='red'):
+def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
     bar_length = (value / max_value) * 0.5  # Longueur relative
     color = color_positive if value > 0 else color_negative
-    ax.barh(0, bar_length, color=color)
-    ax.text(bar_length / 2, 0, f"{value:.1f}", ha='center', va='center', fontsize=8, color='white')
+    ax.barh(0, bar_length, color=color, height=0.8)  # hauteur de barre ajustée à 0.8 pour être uniforme
+    # Calculer la position du texte pour être à droite de la case (le long de l'axe x)
+    margin = 0.02  # Une petite marge à droite
+    ax.text(0.5 - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=8, color='black')
     ax.set_xlim(-0.5, 0.5)
     ax.axis('off')
 
-# Création de la figure
-fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(10, len(merged) * 1.2), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
+# Création de la figure avec taille fixe
+fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.5), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
 # Normalisation pour ajuster la longueur des barres
 max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints_homeaway"].abs().max())
@@ -59,8 +61,11 @@ for j, col in enumerate(columns):
 for i, row in merged.iterrows():
     # Fond alterné pour les lignes
     if i % 2 == 0:
-        for j in range(4):
+        for j in range(2):
             axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.5, 1.5, color="#f0f0f0", zorder=-1))
+        for j in range(2,4):
+            # On applique le fond uniquement sans affecter la mise en page de la barre
+            axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.0, 1.0, color="#f0f0f0", zorder=-1))
     
     # Colonne League
     axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=10)
@@ -77,8 +82,13 @@ for i, row in merged.iterrows():
     draw_bar(axs[i + 1, 3], row["diff_xpoints_homeaway"], max_value)
 
 # Suppression des espaces entre colonnes et lignes
-plt.subplots_adjust(wspace=0, hspace=0)
+plt.subplots_adjust(wspace=0, hspace=0.1)
 
-# Ajustement de la mise en page
-plt.tight_layout()
-plt.show()
+# Enregistrement de l'image dans un fichier
+output_file = "diff_points_xpoints_comparison_table_with_barcharts.png"
+plt.savefig(output_file, bbox_inches='tight', dpi=300)
+
+# Affichage de l'image
+plt.close()
+
+print(f"Le graphique a été enregistré sous {output_file}")
