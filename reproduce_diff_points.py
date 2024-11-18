@@ -24,15 +24,25 @@ away_data = grouped[grouped["Location"] == "away"].rename(
     columns={"points_sum": "points_away", "xpoints_sum": "xpoints_away"}
 )
 
+# Fusionner les données
 merged = pd.merge(
     home_data[["League", "Season", "points_home", "xpoints_home"]],
     away_data[["League", "Season", "points_away", "xpoints_away"]],
     on=["League", "Season"]
 )
 
+# Définir l'ordre personnalisé des ligues
+leagues_order = ["Ligue_1", "La_liga", "EPL", "Bundesliga", "Serie_A", "RFPL"]
+merged["League"] = pd.Categorical(merged["League"], categories=leagues_order, ordered=True)
+
+# Trier les données en fonction de l'ordre des ligues et de la saison
+merged = merged.sort_values(by=["League", "Season"]).reset_index(drop=True)
+
 # Calcul des différences
 merged["diff_points_homeaway"] = merged["points_home"] - merged["points_away"]
-merged["diff_xpoints_homeaway"] = merged["xpoints_home"] - merged["xpoints_away"]
+# Calcul des différences arrondies à l'entier le plus proche
+merged["diff_xpoints_homeaway"] = (merged["xpoints_home"] - merged["xpoints_away"]).round()
+
 
 # Fonction pour ajouter des barres colorées avec des étiquettes
 def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
@@ -46,7 +56,7 @@ def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='
     ax.axis('off')
 
 # Création de la figure avec taille fixe
-fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.0), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
+fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.5), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
 # Normalisation pour ajuster la longueur des barres
 max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints_homeaway"].abs().max())
@@ -54,7 +64,6 @@ max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints
 # Ajout des titres des colonnes
 columns = ["League", "Season", "Diff Points (Home-Away)", "Diff XPoints (Home-Away)"]
 for j, col in enumerate(columns):
-    axs[0, j].text(0.5, 0.5, col, ha='center', va='center', fontsize=14, fontweight='bold')
     axs[0, j].text(0.5, 0.5, col, ha='center', va='center', fontsize=14, fontweight='bold')
     axs[0, j].axis('off')
 
@@ -65,17 +74,14 @@ for i, row in merged.iterrows():
         for j in range(2):
             axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.5, 1.5, color="#f0f0f0", zorder=-1))
         for j in range(2, 4):
-        for j in range(2, 4):
             # On applique le fond uniquement sans affecter la mise en page de la barre
             axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.0, 1.0, color="#f0f0f0", zorder=-1))
     
     # Colonne League
     axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=12)
-    axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=12)
     axs[i + 1, 0].axis('off')
 
     # Colonne Season
-    axs[i + 1, 1].text(0.5, 0.5, str(row["Season"]), ha='center', va='center', fontsize=12)
     axs[i + 1, 1].text(0.5, 0.5, str(row["Season"]), ha='center', va='center', fontsize=12)
     axs[i + 1, 1].axis('off')
 
@@ -89,7 +95,7 @@ for i, row in merged.iterrows():
 plt.subplots_adjust(wspace=0, hspace=0)  # Pas d'espace entre les lignes
 
 # Enregistrement de l'image dans un fichier
-output_file = "diff_points_xpoints_comparison_table_with_barcharts.png"
+output_file = "diff_points_xpoints.png"
 plt.savefig(output_file, bbox_inches='tight', dpi=300)
 
 # Affichage de l'image

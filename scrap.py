@@ -4,8 +4,8 @@ import json
 import pandas as pd
 
 # Configuration des ligues et des saisons
-leagues = ["EPL", "La_liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
-seasons = [str(year) for year in range(2014, 2023)]  # De 2014 à 2022
+leagues = ["Ligue_1", "La_liga", "EPL", "Bundesliga", "Serie_A",  "RFPL"]
+seasons = [str(year) for year in range(2014, 2021)]  # De 2014 à 2020
 
 # Fonction pour extraire et analyser les données de `teamsData` pour home et away
 def extract_team_stats_by_location(league, season):
