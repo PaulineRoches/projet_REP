@@ -38,10 +38,10 @@ merged["diff_xpoints_homeaway"] = merged["xpoints_home"] - merged["xpoints_away"
 def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
     bar_length = (value / max_value) * 0.5  # Longueur relative
     color = color_positive if value > 0 else color_negative
-    ax.barh(0, bar_length, color=color, height=0.8)  # hauteur de barre ajustée à 0.8 pour être uniforme
-    # Calculer la position du texte pour être à droite de la case (le long de l'axe x)
+    ax.barh(0, bar_length, color=color)  # Hauteur de la barre ajustée à 0.5 pour correspondre à la ligne
+    # Calculer la position du texte pour être à droite de la barre (le long de l'axe x)
     margin = 0.02  # Une petite marge à droite
-    ax.text(0.5 - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=8, color='black')
+    ax.text(bar_length - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=14, color='black')
     ax.set_xlim(-0.5, 0.5)
     ax.axis('off')
 
@@ -54,7 +54,7 @@ max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints
 # Ajout des titres des colonnes
 columns = ["League", "Season", "Diff Points (Home-Away)", "Diff XPoints (Home-Away)"]
 for j, col in enumerate(columns):
-    axs[0, j].text(0.5, 0.5, col, ha='center', va='center', fontsize=12, fontweight='bold')
+    axs[0, j].text(0.5, 0.5, col, ha='center', va='center', fontsize=14, fontweight='bold')
     axs[0, j].axis('off')
 
 # Ajout des données
@@ -63,16 +63,16 @@ for i, row in merged.iterrows():
     if i % 2 == 0:
         for j in range(2):
             axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.5, 1.5, color="#f0f0f0", zorder=-1))
-        for j in range(2,4):
+        for j in range(2, 4):
             # On applique le fond uniquement sans affecter la mise en page de la barre
             axs[i + 1, j].add_patch(patches.Rectangle((-0.5, -0.5), 1.0, 1.0, color="#f0f0f0", zorder=-1))
     
     # Colonne League
-    axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=10)
+    axs[i + 1, 0].text(0.5, 0.5, row["League"], ha='center', va='center', fontsize=12)
     axs[i + 1, 0].axis('off')
 
     # Colonne Season
-    axs[i + 1, 1].text(0.5, 0.5, str(row["Season"]), ha='center', va='center', fontsize=10)
+    axs[i + 1, 1].text(0.5, 0.5, str(row["Season"]), ha='center', va='center', fontsize=12)
     axs[i + 1, 1].axis('off')
 
     # Colonne diff_points_homeaway
@@ -82,7 +82,7 @@ for i, row in merged.iterrows():
     draw_bar(axs[i + 1, 3], row["diff_xpoints_homeaway"], max_value)
 
 # Suppression des espaces entre colonnes et lignes
-plt.subplots_adjust(wspace=0, hspace=0.1)
+plt.subplots_adjust(wspace=0, hspace=0)  # Pas d'espace entre les lignes
 
 # Enregistrement de l'image dans un fichier
 output_file = "diff_points_xpoints_comparison_table_with_barcharts.png"
