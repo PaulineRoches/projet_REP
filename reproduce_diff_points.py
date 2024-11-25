@@ -101,4 +101,4 @@ plt.savefig(output_file, bbox_inches='tight', dpi=300)
 # Affichage de l'image
 plt.close()
 
-print(f"Le graphique a été enregistré sous {output_file}")
+print(f"graph is in directory : {output_file}")

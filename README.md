@@ -1,14 +1,16 @@
-# projet_REP
+# Reproduction and Replication of "COVID and Home Advantage in Football"
 
-Ce projet est basé sur le papier "COVID and Home Advantage in Football: An Analysis of Results and xG Data in European Leagues" de Mathieu Acher.
+This project is based on the paper [*"COVID and Home Advantage in Football: An Analysis of Results and xG Data in European Leagues"*](https://blog.mathieuacher.com/FootballAnalysis-xG-COVIDHome/) by Mathieu Acher.
 
 ## Introduction
 
 > *Briefly introduce the subject of the study, the problem it addresses, and the key results or insights obtained from the reproduction and replication effort.*
 
-L'étude de Mathieu Acher a pour but d'étudier l'impact de la présence des supporters de foot sur la performance d'une équipe. Ainsi la question est : y a-t-il un avantage à jouer à domicile ? Intuitivement, on peut se dire que oui, mais le but est de vérifier cela de façon objective. Les résultats de son étude sont que les saisons sans spectateurs ont impacté les performances des équipes, qui ont été moins "bons" à domicile sans leurs supporters, notamment pour la *Ligue 1* et *Premier League* lors de la saison 2020-2021.
+ChatGPT
 
-Nous avons reproduis puis répliqué cette étude afin de vérifier ses résultats. 
+The study conducted by Mathieu Acher aims to examine the impact of football supporters' presence on a team's performance. The question posed is: is there an advantage to playing at home? Intuitively, one might think the answer is yes, but the goal is to objectively verify this. The results of his study show that seasons without spectators affected team performance, as teams performed worse at home without their supporters, particularly in *Ligue 1* and  *Premier League* during the 2020-2021 season.
+
+We replicated and reproduced this study to verify its findings.
 
 **/!\ CONCLUSIONS de notre  étude /!\\**
 
@@ -16,29 +18,25 @@ Nous avons reproduis puis répliqué cette étude afin de vérifier ses résulta
 
 ### How to Reproduce the Results
 1. **Requirements**  
- 
->   - *List dependencies and their versions (e.g., Python, R, libraries, etc.).*
->   - *Specify any system requirements.*
 
-Le projet est exécutable sur tout système supportant Docker.
-
+The project uses the dependencies listed in `requirements.txt`. They are installed with other ones in `Dockerfile`. 
 
 2. **Setting Up the Environment**  
-   - *Provide instructions for using the Dockerfile to create a reproducible environment:*  
-     ```bash
-     docker build -t reproducible-project .
-     docker run -it reproducible-project
-     ```
+
+Here are the commands to build the Docker environnement :
+```bash
+ docker build -t reproducible-project .
+ docker run -rm reproducible-project
+```
 
 3. **Reproducing Results**  
-   - Describe how to run the automated scripts or notebooks to reproduce data and analyze results:
-     ```bash
-     bash scripts/run_analysis.sh
-     ```
-   - Mention Jupyter notebooks (if applicable):  
-     Open `notebooks/reproduce_results.ipynb` to execute the analysis step-by-step.
 
-     Notre travail est dans le jupyter Notebook `analyse.ipynb`.
+The Docker container runs the various scripts needed to reproduce the study.
+   - `entrypoint.sh` is executed at the end of the `Dockerfile` and runs all the scripts :
+     ```sh
+     sh ./entrypoint.sh
+     ```
+   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`.
 
 4. **Automation (Bonus)**  
    - Explain the included GitHub Action that produces or analyzes data automatically.  
