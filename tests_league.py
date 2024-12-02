@@ -43,6 +43,7 @@ for (league, season), group in df.groupby(['League', 'Season']):
         pooled_std = np.sqrt(((arr1.std() ** 2 + arr2.std() ** 2) / 2))
         return diff / pooled_std if pooled_std != 0 else 0
 
+
     cohen_pts = cohen_d(home_pts_list, away_pts_list)
     cohen_xpts = cohen_d(home_xpts_list, away_xpts_list)
     cohen_xg = cohen_d(home_xg_list, away_xg_list)
