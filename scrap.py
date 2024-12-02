@@ -113,47 +113,25 @@ def extract_team_stats_by_match(league, season):
         team_name = team_data['title']
         matches = team_data['history']
 
-        # Séparer les matchs "home" et "away"
-        home_matches = [match for match in matches if match['h_a'] == 'h']
-        away_matches = [match for match in matches if match['h_a'] == 'a']
-
-        # Fonction pour calculer les statistiques
-        def calculate_stats(matches, location):
-            M = len(matches)
-            W = sum(1 for match in matches if match['result'] == 'w')
-            D = sum(1 for match in matches if match['result'] == 'd')
-            L = sum(1 for match in matches if match['result'] == 'l')
-            G = sum(match.get('scored', 0) for match in matches)
-            GA = sum(match.get('missed', 0) for match in matches)
-            PTS = sum(match.get('pts', 0) for match in matches)
-            xG = sum(match.get('xG', 0) for match in matches)
-            xGA = sum(match.get('xGA', 0) for match in matches)
-            xPTS = sum(match.get('xpts', 0) for match in matches)
-
-            # Ajouter les données à la liste
-            return {
+        # Extraire chaque match et ses données pertinentes
+        for match in matches:
+            # On extrait les données pour chaque match (domicile ou extérieur)
+            match_info = {
                 "League": league,
                 "Season": season,
                 "Team": team_name,
-                "Location": location,
-                "M": M,
-                "W": W,
-                "D": D,
-                "L": L,
-                "G": G,
-                "GA": GA,
-                "PTS": PTS,
-                "xG": round(xG, 2),
-                "xGA": round(xGA, 2),
-                "xPTS": round(xPTS, 2)
+                "Home_Away": match['h_a'],  # 'h' pour domicile, 'a' pour extérieur
+                "Result": match['result'],  # 'w' pour victoire, 'd' pour match nul, 'l' pour défaite
+                "Goals": match.get('scored', 0),
+                "Goals_Against": match.get('missed', 0),
+                "xG": round(match.get('xG', 0), 2),
+                "xGA": round(match.get('xGA', 0), 2),
+                "xPTS": round(match.get('xpts', 0), 2),
+                "Points": match.get('pts', 0)  # Points obtenus pour le match (3 pour victoire, 1 pour match nul, 0 pour défaite)
             }
 
-        # Calcul des statistiques pour "home" et "away"
-        home_stats = calculate_stats(home_matches, "home")
-        away_stats = calculate_stats(away_matches, "away")
-
-        # Ajouter les résultats aux statistiques globales
-        match_stats.extend([home_stats, away_stats])
+            # Ajouter le match à la liste
+            match_stats.append(match_info)
 
     return match_stats
 
