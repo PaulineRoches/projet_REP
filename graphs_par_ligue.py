@@ -11,7 +11,7 @@ if not all(col in df.columns for col in required_columns):
     raise ValueError(f"Le fichier CSV doit contenir les colonnes suivantes : {required_columns}")
 
 # Créer le dossier pour enregistrer les graphiques
-output_dir = "evolutions_par_ligue"
+output_dir = "results/evolutions_par_ligue"
 os.makedirs(output_dir, exist_ok=True)
 
 # Calculer les moyennes par league, season, et home/away
@@ -57,9 +57,9 @@ for league in leagues:
     plt.plot(league_data["Season"], league_data["xpoints_away"], label="Points attendus à l'extérieur", marker='o', linestyle='-', color='red')
 
     # Personnaliser le graphique
-    plt.title(f"Évolution des points pour {league}", fontsize=16)
-    plt.xlabel("Saison", fontsize=12)
-    plt.ylabel("Moyenne des points par match", fontsize=12)
+    plt.title(f"Points evolution for {league}", fontsize=16)
+    plt.xlabel("Season", fontsize=12)
+    plt.ylabel("Mean gained points per match", fontsize=12)
     plt.legend()
     plt.grid(True)
     plt.xticks(league_data["Season"], rotation=45)
@@ -70,4 +70,4 @@ for league in leagues:
     plt.savefig(file_path)  # Enregistrer le graphique
     plt.close()  # Fermer la figure après l'avoir sauvegardée
 
-print(f"Les graphiques ont été enregistrés dans le dossier '{output_dir}'.")
+print(f"graphs are in the repertory : '{output_dir}'.")
