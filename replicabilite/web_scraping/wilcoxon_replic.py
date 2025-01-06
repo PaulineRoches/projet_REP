@@ -102,7 +102,7 @@ def create_image(df):
 
 def main():
     # Charger les données depuis un fichier CSV
-    understat = pd.read_csv('./understat_match_stats.csv')
+    understat = pd.read_csv('./replicabilite/web_scraping/understat_match_stats.csv')
     
     final_df = pd.DataFrame(columns=["League", "Season", "wilco-result", "wilco-result-pvalue", "result-cohend",
                                      "wilco-xPTS", "wilco-xPTS-pvalue", "result-cohend-xPTS", 
