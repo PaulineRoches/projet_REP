@@ -92,12 +92,12 @@ def create_image(df):
         for col_idx, (col_name, value) in enumerate(row.items()):
             color = get_cell_color(value, col_name)
             table.add_cell(row_idx + 1, col_idx, width=1 / n_cols, height=0.1,
-                           text=f"{value:.4f}" if isinstance(value, float) else str(value),
+                           text=f"{value:.6f}" if isinstance(value, float) else str(value),
                            loc='center', facecolor=color, edgecolor='black')
 
     ax.add_table(table)
-    plt.savefig("styled_results.png", bbox_inches='tight', dpi=300)
-    print("Image saved as 'styled_results.png'")
+    plt.savefig("replicabilite/web_scraping/results/wilcoxon_web.png", bbox_inches='tight', dpi=300)
+    print("Image saved as 'wilcoxon_web.png'")
 
 
 def main():

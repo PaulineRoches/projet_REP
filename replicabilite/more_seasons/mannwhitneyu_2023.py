@@ -95,7 +95,7 @@ def create_stylized_table(results, league):
         for col_idx, (col_name, value) in enumerate(row[1].items()):
             color = get_cell_color(value)
             table.add_cell(row_idx + 1, col_idx + 1, width=1 / (n_cols + 1), height=0.1,
-                           text=f"{value:.4f}" if pd.notna(value) else "", loc='center',
+                           text=f"{value:.6f}" if pd.notna(value) else "", loc='center',
                            facecolor=color, edgecolor='black')
 
     ax.add_table(table)
