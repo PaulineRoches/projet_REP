@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 # Chargement des données CSV
-df = pd.read_csv("./understat_team_stats_home_away.csv")
+df = pd.read_csv("./replicabilite/web_scraping/understat_team_stats_home_away.csv")
 
 # Vérifier que les colonnes nécessaires existent
 required_columns = ["League", "Season", "Team", "Location", "PTS", "xPTS"]
@@ -48,7 +48,7 @@ merged["diff_xpoints_homeaway"] = (merged["xpoints_home"] - merged["xpoints_away
 def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
     bar_length = (value / max_value) * 0.5  # Longueur relative
     color = color_positive if value > 0 else color_negative
-    ax.barh(0, bar_length, color=color)  # Hauteur de la barre ajustée à 0.5 pour correspondre à la ligne
+    ax.barh(0, bar_length, color=color, height=1)  # Hauteur de la barre ajustée à 0.5 pour correspondre à la ligne
     # Calculer la position du texte pour être à droite de la barre (le long de l'axe x)
     margin = 0.02  # Une petite marge à droite
     ax.text(bar_length - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=14, color='black')
@@ -56,7 +56,7 @@ def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='
     ax.axis('off')
 
 # Création de la figure avec taille fixe
-fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.5), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
+fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, 22), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
 # Normalisation pour ajuster la longueur des barres
 max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints_homeaway"].abs().max())
@@ -95,7 +95,7 @@ for i, row in merged.iterrows():
 plt.subplots_adjust(wspace=0, hspace=0)  # Pas d'espace entre les lignes
 
 # Enregistrement de l'image dans un fichier
-output_file = "results/diff_points_xpoints.png"
+output_file = "./replicabilite/web_scraping/results/diff_points_xpoints.png"
 plt.savefig(output_file, bbox_inches='tight', dpi=300)
 
 # Affichage de l'image
