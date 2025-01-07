@@ -85,7 +85,7 @@ for league in leagues:
 
 # Sauvegarde des données dans un fichier CSV
 df = pd.DataFrame(all_stats)
-df.to_csv("understat_team_stats_home_away.csv", index=False)
+df.to_csv("replicabilite/web_scraping/understat_team_stats_home_away.csv", index=False)
 print("Data saved to understat_team_stats_home_away.csv")
 
 
@@ -145,5 +145,5 @@ for league in leagues:
 
 # Sauvegarde des données dans un fichier CSV
 df = pd.DataFrame(all_match_stats)
-df.to_csv("understat_match_stats.csv", index=False)
+df.to_csv("replicabilite/web_scraping/understat_match_stats.csv", index=False)
 print("Data saved to understat_match_stats.csv")
