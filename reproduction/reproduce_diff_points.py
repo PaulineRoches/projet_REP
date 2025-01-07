@@ -88,7 +88,7 @@ def create_graph(data):
     data = data.sort_values(by=["League", "Season"]).reset_index(drop=True)
 
     # Création du graphique
-    fig, axs = plt.subplots(len(data) + 1, 4, figsize=(14, len(data) * 1.5), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
+    fig, axs = plt.subplots(len(data) + 1, 4, figsize=(14, 22), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
     # Normalisation pour ajuster la longueur des barres
     max_value = max(data["diff_points_homeaway"].abs().max(), data["diff_xpoints_homeaway"].abs().max())
@@ -124,7 +124,7 @@ def create_graph(data):
     plt.subplots_adjust(wspace=0, hspace=0)
 
     # Sauvegarde du graphique
-    output_file = "reproduction/results/diff_points_xpoints_2.png"
+    output_file = "reproduction/results/diff_points_xpoints.png"
     plt.savefig(output_file, bbox_inches='tight', dpi=300)
     plt.close()
 
@@ -134,8 +134,8 @@ def create_graph(data):
 def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='red'):
     bar_length = (value / max_value) * 0.5  # Longueur relative
     color = color_positive if value > 0 else color_negative
-    ax.barh(0, bar_length, color=color)
-    margin = 0.02
+    ax.barh(0, bar_length, color=color, height=1)
+    margin = 0.00
     ax.text(bar_length - margin, 0, f"{int(value)}", ha='right', va='center', fontsize=14, color='black')
     ax.set_xlim(-0.5, 0.5)
     ax.axis('off')
