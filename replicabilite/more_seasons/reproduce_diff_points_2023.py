@@ -56,7 +56,7 @@ def draw_bar(ax, value, max_value, color_positive='lightgreen', color_negative='
     ax.axis('off')
 
 # Création de la figure avec taille fixe
-fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, len(merged) * 1.5), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
+fig, axs = plt.subplots(len(merged) + 1, 4, figsize=(14, 22), gridspec_kw={'width_ratios': [1, 1, 3, 3]})
 
 # Normalisation pour ajuster la longueur des barres
 max_value = max(merged["diff_points_homeaway"].abs().max(), merged["diff_xpoints_homeaway"].abs().max())
