@@ -86,7 +86,7 @@ def create_image(df):
             return 'yellow'
         return 'white'
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+    fig, ax = plt.subplots(figsize=(12, 16))
     ax.axis('off')
     table = Table(ax, bbox=[0, 0, 1, 1])
     n_rows, n_cols = df.shape
