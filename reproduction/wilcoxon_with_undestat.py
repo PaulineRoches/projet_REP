@@ -76,10 +76,10 @@ def create_image(df):
     """
     Create a stylized image of the results table.
     """
-    if not os.path.exists("results"):
-        os.makedirs("results")
+    if not os.path.exists("./reproduction/results"):
+        os.makedirs("./reproduction/results")
 
-    file_path = os.path.join("results", "reproduction_wilcoxon.png")
+    file_path = os.path.join("./reproduction/results", "reproduction_wilcoxon.png")
     
     def get_cell_color(val, col_name):
         if col_name.startswith('wilco-pvalue') and val > 0.05:
@@ -88,23 +88,25 @@ def create_image(df):
             return 'yellow'
         return 'white'
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+    fig, ax = plt.subplots(figsize=(12, 12))
     ax.axis('off')
     table = Table(ax, bbox=[0, 0, 1, 1])
     n_rows, n_cols = df.shape
 
     # Add headers
     for (i, col_name) in enumerate(df.columns):
-        table.add_cell(0, i, width=1 / n_cols, height=0.1, text=col_name, loc='center',
+        cell = table.add_cell(0, i, width=1 / n_cols, height=0.1, text=col_name, loc='center',
                        facecolor='gray', edgecolor='black')
+        cell.get_text().set_fontsize(20)
 
     # Add data rows
     for row_idx, row in df.iterrows():
         for col_idx, (col_name, value) in enumerate(row.items()):
             color = get_cell_color(value, col_name)
-            table.add_cell(row_idx + 1, col_idx, width=1 / n_cols, height=0.1,
+            cell = table.add_cell(row_idx + 1, col_idx, width=1 / n_cols, height=0.1,
                            text=f"{value:.6f}" if isinstance(value, float) else str(value),
                            loc='center', facecolor=color, edgecolor='black')
+            cell.get_text().set_fontsize(20)
 
     ax.add_table(table)
     plt.savefig(file_path, bbox_inches='tight', dpi=300)
