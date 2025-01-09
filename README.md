@@ -65,5 +65,10 @@ All these variability factors ultimately supported the conclusions of the origin
 However, it is crucial to interpret these findings with caution. Changes in methodology, such as adjustments in how data is analyzed or aggregated, can lead to less pronounced differences in team performance and outcomes. This underlines the sensitivity of the results to the chosen approach.
 
 ## Conclusion
-- Recap findings from the reproducibility and replicability sections.
-- Discuss limitations of your
+Reproduction of the study confirmed the initial hypothesis: having supporters in the stadium positively impacts team performance, boosting points and goals scored, as well as expected points and goals. In this phase, we carefully revisited the original analysis to ensure it was accurate and consistent. We found that playing at home generally gives teams a clear advantage. However, during the COVID-19 seasons, when games were played without fans, this advantage dropped significantly or even reversed.
+
+In the replication phase, we went beyond just checking the original findings. We tested how solid these conclusions were by using different datasets, new statistical methods, and various tools. While the results mostly supported the original findings—showing that fan presence is crucial for home advantage—we also found some differences. For example, the drop in home advantage varied depending on the league, team, and specific match conditions. This suggests that the effect of having fans isn’t the same in every situation.
+
+These differences show that home advantage is influenced by more than just whether fans are present. The replication highlighted that while the overall trend holds, certain situations may show different results. This points to the need for further research to better understand how factors like team tactics or mental toughness interact with fan presence.
+
+In conclusion, the study confirms that supporters play a big role in boosting team performance, matching the initial hypothesis. However, the replication also showed that the story is more complex, especially under unusual conditions like those during the pandemic. Exploring more datasets and methods can help uncover a deeper understanding of how fans influence football outcomes.
