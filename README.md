@@ -50,7 +50,7 @@ Even though it's difficult as we have no given instructions, the original study 
   | Extraction Data method | Web-scraping or python package | Changes results for some statistical tests |
   | Statistical tests | ANOVA, Wilcoxon test, Mann-Whitney U test  | May affect the conclusions |
   | Seasons | 2014-2020 or 2014-2023 | May confirm the impact of fans |
-  | SciPy version | 1.7.0+ or before | Changes the test |
+  | SciPy version | 1.7.0+ or before | Changes the Mann-Whitney U test and its conclusions |
   | Data classification | By team or by match | May change the conclusions for statistical tests |
   | Data source | Understat or another dataset | May change the way of collectig the data and give other indicators|
 
