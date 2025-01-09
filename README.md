@@ -57,7 +57,7 @@ Even though it's difficult as we have no given instructions, the original study 
 We did not have the opportunity to test the last two factors thoroughly. During our initial attempt to reproduce the study, we analyzed data by team rather than by match. This methodological difference altered the results of the tests significantly. Since this approach was intertwined with web-scraping factors, we could not rely on these results, nor confirm their validity using the Python package due to time constraints. As a result, we were unable to take these findings into account and did not have sufficient time to verify them with the Python implementation.
 
 #### Does It Confirm the Original Study?
-All these variability factors ultimately supported the conclusions of the original study. While some factors introduced minor variations in the outcomes, the central hypothesis remains validated: the presence of fans significantly influences match results in most European leagues.
+All these variability factors ultimately supported the conclusions of the original study (see part **Replication of the study** in `analyse.ipynb`). While some factors introduced minor variations in the outcomes, the central hypothesis remains validated: the presence of fans significantly influences match results in most European leagues.
 
 However, it is crucial to interpret these findings with caution. Changes in methodology, such as adjustments in how data is analyzed or aggregated, can lead to less pronounced differences in team performance and outcomes. This underlines the sensitivity of the results to the chosen approach.
 
