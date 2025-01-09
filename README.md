@@ -8,9 +8,9 @@ The study conducted by Mathieu Acher aims to examine the impact of football supp
 
 We replicated and reproduced this study to verify its findings.
 
-## Reproducibility
+## Reproducibility & Replicability
 
-### How to Reproduce the Results
+### How to see the Results
 1. **Requirements**  
 
 The project uses the dependencies listed in `requirements.txt`. They are installed with other ones in `Dockerfile`. 
@@ -23,29 +23,28 @@ Here are the commands to build the Docker environnement :
  docker run -rm reproducible-project
 ```
 
-3. **Reproducing Results**  
+3. **Reproducing & Replicability Results**  
 
-The Docker container runs the various scripts needed to reproduce the study.
+The Docker container runs the various scripts needed to reproduce and replicate the study.
    - `entrypoint.sh` is executed at the end of the `Dockerfile` and runs all the scripts :
      ```sh
      sh ./entrypoint.sh
      ```
-   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`.
+   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`. There is a part named *Reproduction of the study* and another one named *Replication of the study*.
 
-4. **Automation (Bonus)**  
-   - Explain the included GitHub Action that produces or analyzes data automatically.  
-    
-### Encountered Issues and Improvements
+### Reproducibility
+
+#### Encountered Issues and Improvements with reproduction
 - Report any challenges, errors, or deviations from the original study.
 - Describe how these issues were resolved or improved, if applicable.
 
-### Is the Original Study Reproducible?
+#### Is the Original Study Reproducible?
 - Summarize the success or failure of reproducing the study.
 - Include supporting evidence, such as comparison tables, plots, or metrics.
 
-## Replicability
+### Replicability
 
-### Variability Factors
+#### Variability Factors
 - **List of Factors**: Identify all potential sources of variability (e.g., dataset splits, random seeds, hardware).  
   Example table:
   | Variability Factor | Possible Values     | Relevance                                   |
@@ -70,19 +69,7 @@ The Docker container runs the various scripts needed to reproduce the study.
      - `--hardware`: Choose between CPU or GPU.
      - `--dataset-version`: Select the dataset version.
 
-
-### Replication Execution
-1. **Instructions**  
-   - Provide detailed steps or commands for running the replication(s):  
-     ```bash
-     bash scripts/replicate_experiment.sh
-     ```
-
-2. **Presentation and Analysis of Results**  
-   - Include results in text, tables, or figures.
-   - Analyze and compare with the original study's findings.
-
-### Does It Confirm the Original Study?
+#### Does It Confirm the Original Study?
 - Summarize the extent to which the replication supports the original study’s conclusions.
 - Highlight similarities and differences, if any.
 
