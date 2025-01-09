@@ -35,12 +35,10 @@ The Docker container runs the various scripts needed to reproduce and replicate 
 ### Reproducibility
 
 #### Encountered Issues and Improvements with reproduction
-- Report any challenges, errors, or deviations from the original study.
-- Describe how these issues were resolved or improved, if applicable.
+The main difficulty we had with the reproduction was that there was no indication about the methods used in the original study. So it was challenging to obtain the same results. Finding the existence of the library Understat was very useful. The little changes we saw by trying to reproduce the study allowed us to think about what affect the results of the study, like an introduction for the replicability part.
 
 #### Is the Original Study Reproducible?
-- Summarize the success or failure of reproducing the study.
-- Include supporting evidence, such as comparison tables, plots, or metrics.
+Even though it's difficult as we have no indication, the original study is reproducible. We were able to match the findings of the original study (part **Reproduction of the study** in `analyse.ipynb`) by trying to applicate the methods said to be used in Mathieu Acher's work. 
 
 ### Replicability
 
