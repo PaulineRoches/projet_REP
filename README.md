@@ -50,11 +50,9 @@ Even though it's difficult as we have no given instructions, the original study 
   | Extraction Data method | Web-scraping or python package | Changes results for some statistical tests |
   | Statistical tests | ANOVA, Wilcoxon test, Mann-Whitney U test  | May affect the conclusions |
   | Seasons | 2014-2020 or 2014-2023 | May confirm the impact of fans |
-  | SciPy version | 1.7.0+ or before | Changes the test |
+  | SciPy version | 1.7.0+ or before | Changes the Mann-Whitney U test and its conclusions |
   | Data classification | By team or by match | May change the conclusions for statistical tests |
   | Data source | Understat or another dataset | May change the way of collectig the data and give other indicators|
-
-Here’s an improved version with the original context and the new addition:
 
 We did not have the opportunity to test the last two factors thoroughly. During our initial attempt to reproduce the study, we analyzed data by team rather than by match. This methodological difference altered the results of the tests significantly. Since this approach was intertwined with web-scraping factors, we could not rely on these results, nor confirm their validity using the Python package due to time constraints.As a result, we were unable to take these findings into account and did not have sufficient time to verify them with the Python implementation.
 
