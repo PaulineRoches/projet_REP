@@ -30,17 +30,15 @@ The Docker container runs the various scripts needed to reproduce and replicate 
      ```sh
      sh ./entrypoint.sh
      ```
-   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`. There is a part named *Reproduction of the study* and another one named *Replication of the study*.
+   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`. There is a part named **Reproduction of the study** and another one named **Replication of the study**.
 
 ### Reproducibility
 
 #### Encountered Issues and Improvements with reproduction
-- Report any challenges, errors, or deviations from the original study.
-- Describe how these issues were resolved or improved, if applicable.
+The main difficulty we had with the reproduction was that there was no clear indication about the environnement used in the original study. So it was challenging to obtain the same results. Our principal difficulty was the data extraction method as we did not find the exact same results with web scraping than in Mathieu Acher's work. Finding the existence of the library Understat was very useful to help us obtain similar results. The little errors we made by trying to reproduce the study allowed us to think about what affects the results of the study, like a sort of introduction to the replicability part.
 
 #### Is the Original Study Reproducible?
-- Summarize the success or failure of reproducing the study.
-- Include supporting evidence, such as comparison tables, plots, or metrics.
+Even though it's difficult as we have no given instructions, the original study is reproducible. We were able to match the findings of the original study (see part **Reproduction of the study** in `analyse.ipynb`) by trying to applicate the methods said to be used in Mathieu Acher's work. 
 
 ### Replicability
 
