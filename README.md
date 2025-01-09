@@ -4,15 +4,9 @@ This project is based on the paper [*"COVID and Home Advantage in Football: An A
 
 ## Introduction
 
-> *Briefly introduce the subject of the study, the problem it addresses, and the key results or insights obtained from the reproduction and replication effort.*
-
-ChatGPT
-
 The study conducted by Mathieu Acher aims to examine the impact of football supporters' presence on a team's performance. The question posed is: is there an advantage to playing at home? Intuitively, one might think the answer is yes, but the goal is to objectively verify this. The results of his study show that seasons without spectators affected team performance, as teams performed worse at home without their supporters, particularly in *Ligue 1* and  *Premier League* during the 2020-2021 season.
 
 We replicated and reproduced this study to verify its findings.
-
-**/!\ CONCLUSIONS de notre  étude /!\\**
 
 ## Reproducibility
 
