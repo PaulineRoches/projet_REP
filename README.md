@@ -1,4 +1,5 @@
 # Reproduction and Replication of "COVID and Home Advantage in Football"
+**Solène Lemonnier & Pauline Roches**
 
 This project is based on the paper [*"COVID and Home Advantage in Football: An Analysis of Results and xG Data in European Leagues"*](https://blog.mathieuacher.com/FootballAnalysis-xG-COVIDHome/) by Mathieu Acher.
 
