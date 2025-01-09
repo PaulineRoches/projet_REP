@@ -54,8 +54,6 @@ Even though it's difficult as we have no given instructions, the original study 
   | Data classification | By team or by match | May change the conclusions for statistical tests |
   | Data source | Understat or another dataset | May change the way of collectig the data and give other indicators|
 
-Here’s an improved version with the original context and the new addition:
-
 We did not have the opportunity to test the last two factors thoroughly. During our initial attempt to reproduce the study, we analyzed data by team rather than by match. This methodological difference altered the results of the tests significantly. Since this approach was intertwined with web-scraping factors, we could not rely on these results, nor confirm their validity using the Python package due to time constraints.As a result, we were unable to take these findings into account and did not have sufficient time to verify them with the Python implementation.
 
 
