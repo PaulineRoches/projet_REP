@@ -45,33 +45,26 @@ The Docker container runs the various scripts needed to reproduce and replicate 
 ### Replicability
 
 #### Variability Factors
-- **List of Factors**: Identify all potential sources of variability (e.g., dataset splits, random seeds, hardware).  
-  Example table:
+- **List of Factors**: We identified different factors of variability :  
+
   | Variability Factor | Possible Values     | Relevance                                   |
   |--------------------|---------------------|--------------------------------------------|
-  | Random Seed        | [0, 42, 123]       | Impacts consistency of random processes    |
-  | Hardware           | CPU, GPU (NVIDIA)  | May affect computation time and results    |
-  | Dataset Version    | v1.0, v1.1         | Ensures comparability across experiments   |
+  | Extraction Data method | Web-scraping or python package | Changes results for some statistical tests |
+  | Statistical tests | ANOVA, Wilcoxon test, Mann-Whitney U test  | May affect the conclusions |
+  | Seasons | 2014-2020 or 2014-2023 | May confirm the impact of fans |
+  | SciPy version | 1.7.0+ or before | Changes the test |
+  | Data classification | By team or by match | May change the conclusions for statistical tests |
+  | Data source | Understat or another dataset | May change the way of collectig the data and give other indicators|
 
-- **Constraints Across Factors**:  
-  - Document any constraints or interdependencies among variability factors.  
-    For example:
-    - Random Seed must align with dataset splits for consistent results.
-    - Hardware constraints may limit the choice of GPU-based factors.
+Here’s an improved version with the original context and the new addition:
 
-- **Exploring Variability Factors via CLI (Bonus)**  
-   - Provide instructions to use the command-line interface (CLI) to explore variability factors and their combinations:  
-     ```bash
-     python explore_variability.py --random-seed 42 --hardware GPU --dataset-version v1.1
-     ```
-   - Describe the functionality and parameters of the CLI:
-     - `--random-seed`: Specify the random seed to use.
-     - `--hardware`: Choose between CPU or GPU.
-     - `--dataset-version`: Select the dataset version.
+We did not have the opportunity to test the last two factors thoroughly. During our initial attempt to reproduce the study, we analyzed data by team rather than by match. This methodological difference altered the results of the tests significantly. Since this approach was intertwined with web-scraping factors, we could not rely on these results, nor confirm their validity using the Python package due to time constraints.As a result, we were unable to take these findings into account and did not have sufficient time to verify them with the Python implementation.
+
 
 #### Does It Confirm the Original Study?
-- Summarize the extent to which the replication supports the original study’s conclusions.
-- Highlight similarities and differences, if any.
+All these variability factors ultimately supported the conclusions of the original study. While some factors introduced minor variations in the outcomes, the central hypothesis remains validated: the presence of fans significantly influences match results in most European leagues.
+
+However, it is crucial to interpret these findings with caution. Changes in methodology, such as adjustments in how data is analyzed or aggregated, can lead to less pronounced differences in team performance and outcomes. This underlines the sensitivity of the results to the chosen approach.
 
 ## Conclusion
 - Recap findings from the reproducibility and replicability sections.
