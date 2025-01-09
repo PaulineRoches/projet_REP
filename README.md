@@ -30,7 +30,7 @@ The Docker container runs the various scripts needed to reproduce and replicate 
      ```sh
      sh ./entrypoint.sh
      ```
-   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`. There is a part named *Reproduction of the study* and another one named *Replication of the study*.
+   - Our analysis work is contained in the Jupyter Notebook `analyse.ipynb`. There is a part named **Reproduction of the study** and another one named **Replication of the study**.
 
 ### Reproducibility
 
