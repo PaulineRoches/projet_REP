@@ -35,10 +35,10 @@ The Docker container runs the various scripts needed to reproduce and replicate 
 ### Reproducibility
 
 #### Encountered Issues and Improvements with reproduction
-The main difficulty we had with the reproduction was that there was no indication about the methods used in the original study. So it was challenging to obtain the same results. Finding the existence of the library Understat was very useful. The little changes we saw by trying to reproduce the study allowed us to think about what affect the results of the study, like an introduction for the replicability part.
+The main difficulty we had with the reproduction was that there was no clear indication about the environnement used in the original study. So it was challenging to obtain the same results. Our principal difficulty was the data extraction method as we did not find the exact same results with web scraping than in Mathieu Acher's work. Finding the existence of the library Understat was very useful to help us obtain similar results. The little errors we made by trying to reproduce the study allowed us to think about what affects the results of the study, like a sort of introduction to the replicability part.
 
 #### Is the Original Study Reproducible?
-Even though it's difficult as we have no indication, the original study is reproducible. We were able to match the findings of the original study (part **Reproduction of the study** in `analyse.ipynb`) by trying to applicate the methods said to be used in Mathieu Acher's work. 
+Even though it's difficult as we have no given instructions, the original study is reproducible. We were able to match the findings of the original study (see part **Reproduction of the study** in `analyse.ipynb`) by trying to applicate the methods said to be used in Mathieu Acher's work. 
 
 ### Replicability
 
